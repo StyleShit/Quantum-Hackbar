@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="css/devtools.css" />
+    </head>
+
+    <body>
+        <div class="container">
+            <ul class="dropdown-menu">
+                
+                <!-- SQL start -->
+                <li class="dropdown-menu-item">
+                    SQL
+                    <ul>
+                        <!-- MySQL submenu start -->
+                        <li class="dropdown-submenu">
+                            <a class="dropdown-btn">MySQL</a>
+                            <ul>
+                                <li class="dropdown-submenu-item">
+                                    <a class="dropdown-btn basic-info-column-btn">Basic Info Column</a>
+                                </li>
+                                
+                                <li class="dropdown-submenu-item">
+                                    <a class="dropdown-btn convert-using-utf-8-btn">Convert Using UTF-8</a>
+                                </li>
+        
+                                <li class="dropdown-submenu-item">
+                                    <a class="dropdown-btn convert-using-latin-btn">Convert Using Latin</a>
+                                </li>
+        
+                                <li class="dropdown-submenu-item">
+                                    <a class="dropdown-btn mysql-char-btn">MySQL CHAR()</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <!-- MySQL submenu end -->
+
+                        <!-- MSSQL submenu start -->
+                        <li class="dropdown-submenu">
+                            <a class="dropdown-btn">MSSQL</a>
+                            <ul>
+                                <li class="dropdown-submenu-item">
+                                    <a class="dropdown-btn mssql-char-btn">MSSQL CHAR()</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <!-- MSSQL submenu end -->
+
+                         <!-- Oracle submenu start -->
+                         <li class="dropdown-submenu">
+                            <a class="dropdown-btn">Oracle</a>
+                            <ul>
+                                <li class="dropdown-submenu-item">
+                                    <a class="dropdown-btn orcale-char-btn">Oracle CHAR()</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <!-- Oracle submenu end -->
+                        
+                        <li>
+                            <a class="dropdown-btn union-select-statement-btn">UNION SELECT Statement</a>
+                        </li>
+
+                        <li>
+                            <a class="dropdown-btn spaces-to-inline-comments-btn">Spaces to Inline Comments</a>
+                        </li>
+                    </ul>
+                </li>
+                <!-- SQL end -->
+
+
+                <!-- XSS Start -->
+                <li class="dropdown-menu-item">
+                    XSS
+                    <ul>
+                        <li>
+                            <a class="dropdown-btn xss-from-char-code-btn">String.fromCharCode()</a>
+                        </li>
+
+                        <li>
+                            <a class="dropdown-btn xss-html-characters-btn">HTML Characters</a>
+                        </li>
+
+                        <li>
+                            <a class="dropdown-btn xss-alert-statement-btn">alert('XSS') statement</a>
+                        </li>
+                    </ul>
+                </li>
+                <!-- XSS end -->
+
+
+                <!-- Encryption start -->
+                <li class="dropdown-menu-item">
+                    Encryption
+                    <ul>
+                        <li>
+                            <a class="dropdown-btn md5-hash-btn">MD5 Hash</a>
+                        </li>
+
+                        <li>
+                            <a class="dropdown-btn sha1-hash-btn">SHA1 Hash</a>
+                        </li>
+
+                        <li>
+                            <a class="dropdown-btn sha256-hash-btn">SHA-256 Hash</a>
+                        </li>
+
+                        <li>
+                            <a class="dropdown-btn rot13-hash-btn">ROT13</a>
+                        </li>
+                    </ul>
+                </li>
+                <!-- Encryption end -->
+
+
+                <!-- Encoding start -->
+                <li class="dropdown-menu-item">
+                    Encoding
+                    <ul>
+                        <li>
+                            <a class="dropdown-btn base64-encode-btn">Base64 Encode</a>
+                        </li>
+
+                        <li>
+                            <a class="dropdown-btn base64-decode-btn">Base64 Decode</a>
+                        </li>
+
+                        <li>
+                            <a class="dropdown-btn md5-encode-btn">URL Encode</a>
+                        </li>
+
+                        <li>
+                            <a class="dropdown-btn md5-decode-btn">URL Decode</a>
+                        </li>
+                    </ul>
+                </li>
+                <!-- Encoding end -->
+
+
+                <!-- Other start -->
+                <li class="dropdown-menu-item">
+                    Other
+                    <ul>
+                        <li>
+                            <a class="dropdown-btn addslashes-btn">Addslashes</a>
+                        </li>
+
+                        <li>
+                            <a class="dropdown-btn striplashes-btn">Striplashes</a>
+                        </li>
+
+                        <li>
+                            <a class="dropdown-btn strip-spaces-btn">Strip Spaces</a>
+                        </li>
+
+                        <li>
+                            <a class="dropdown-btn reverse-string-btn">Reverse</a>
+                        </li>
+                    </ul>
+                </li>
+                <!-- Other end -->
+
+            </ul>
+
+            <textarea class="payload"></textarea>
+        
+            <div class="buttons">
+                <button class="load-url-btn">
+                    Load URL
+                </button>
+
+                <button class="split-url-btn">
+                    Split URL
+                </button>
+        
+                <button class="execute-payload-btn">
+                    Execute!
+                </button>
+            </div>
+        </div>
+        
+        <script src="js/hackbar.js"></script>
+    </body>
+
+</html>
