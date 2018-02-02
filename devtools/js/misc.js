@@ -39,7 +39,7 @@ function loadURL()
 {
     exec( 'window.location.href' ).then( URL => {
         URL = URL.slice( 0, -1 );
-        payloadInput.value = URL;
+        payloadInput.value = decodeURI( URL );
     });
 }
 
@@ -58,9 +58,14 @@ function splitURL()
 // execute payload from the input
 function executePayload()
 {
-    let URL =  payloadInput.value;
+    let URL = payloadInput.value.replace( /(\n|\r|\r\n)/, '' );
+    URL = encodeURI( URL );
+    URL = URL.replace( /\#/g, '%23' );
+
     exec( 'window.location.href = "' + URL + '"' ).then( () => {
-        // nothing
+        // focus the input again for comfort
+        // TODO: not working. fix that...
+        setTimeout( () => { payloadInput.focus() }, 100 );
     });
 }
 
@@ -71,7 +76,7 @@ function addToPayload( data )
     /**
      * Source: https://stackoverflow.com/a/11077016/3829526
      */
-    
+
     if( payloadInput.selectionStart || payloadInput.selectionStart == '0' )
     {
         let startPos = payloadInput.selectionStart;
@@ -84,4 +89,37 @@ function addToPayload( data )
     
     else
         payloadInput.value += data;
+}
+
+
+// get selected text
+function getSelectedText() 
+{
+    let selectionStart = payloadInput.selectionStart;
+    let selectionEnd = payloadInput.selectionEnd;
+    if ( selectionEnd - selectionStart < 1 ) 
+    {
+        exec( 'alert( "Select text before using this function!" );' )
+            .then(function ( result, isException ) {
+                // nothing
+            });
+
+        return false;
+    }
+
+    return payloadInput.value.substr( selectionStart, selectionEnd - selectionStart );
+}
+
+
+// set selected text
+function setSelectedText( str )
+{
+    let selectionStart = payloadInput.selectionStart;
+    let selectionEnd = payloadInput.selectionEnd;
+    let pre = payloadInput.value.substr( 0, selectionStart );
+    let post = payloadInput.value.substr( selectionEnd, payloadInput.value.length );
+
+    payloadInput.value = pre + str + post;
+    payloadInput.selectionStart = selectionStart;
+    payloadInput.selectionEnd = selectionStart + str.length;
 }
