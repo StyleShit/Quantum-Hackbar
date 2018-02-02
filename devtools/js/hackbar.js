@@ -2,7 +2,7 @@
  * Global Variables
  */
 
- var payloadInput = _( '.payload' );
+let payloadInput = _( '.payload' );
 
 /**
  * Click listeners
