@@ -66,8 +66,22 @@ function executePayload()
 
 
 // add value to payload
-// TODO: add the value in the current position of the cursor
 function addToPayload( data )
 {
-    payloadInput.value += data;
+    /**
+     * Source: https://stackoverflow.com/a/11077016/3829526
+     */
+    
+    if( payloadInput.selectionStart || payloadInput.selectionStart == '0' )
+    {
+        let startPos = payloadInput.selectionStart;
+        let endPos = payloadInput.selectionEnd;
+
+        payloadInput.value = payloadInput.value.substring( 0, startPos )
+            + data
+            + payloadInput.value.substring( endPos, payloadInput.value.length );
+    } 
+    
+    else
+        payloadInput.value += data;
 }
