@@ -16,12 +16,24 @@ function __( el )
 }
 
 
+// hide hovered menu element after clicking
+function unhover()
+{
+    let el = _( '.dropdown-menu' );
+
+    el.style.pointerEvents = 'none';
+    setTimeout( () => {
+        el.style.pointerEvents = '';
+    }, 500 );
+}
+
 // attach function to click event of given elements
 function listenClicks( elements )
 {
     elements.forEach( el => {
         _( el.el ).addEventListener( 'click', ( e ) => {
             el.func();
+            unhover();
         });
     });
 }
