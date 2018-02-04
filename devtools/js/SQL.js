@@ -54,7 +54,7 @@ function SQLCHAR( db )
     let charStringArray = [];
     let decimal;
 
-    for (let c = 0; c < str.length; c++) 
+    for ( let c = 0; c < str.length; c++ ) 
     {
         decimal = str.charCodeAt(c);
         charStringArray.push(decimal);
