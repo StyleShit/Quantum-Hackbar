@@ -27,6 +27,7 @@ function unhover()
     }, 500 );
 }
 
+
 // attach function to click event of given elements
 function listenClicks( elements )
 {

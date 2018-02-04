@@ -52,5 +52,5 @@ function htmlCharacters()
 // add XSS alert to payload
 function xssAlertStatement()
 {
-    addToPayload( 'alert(String.fromCharCode(88, 83, 83))' );
+    addToPayload( '<script>alert(String.fromCharCode(88, 83, 83))</script>' );
 }
