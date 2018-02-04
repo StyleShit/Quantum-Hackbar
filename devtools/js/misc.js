@@ -58,7 +58,7 @@ function splitURL()
 // execute payload from the input
 function executePayload()
 {
-    let URL = payloadInput.value.replace( /(\n|\r|\r\n)/, '' );
+    let URL = payloadInput.value.replace( /(\n|\r|\r\n)/g, '' );
     URL = encodeURI( URL );
     URL = URL.replace( /\#/g, '%23' );
 
