@@ -40,8 +40,13 @@ let actionButtons = [
     { el: '.base64-encode-btn', func: base64Encode },
     { el: '.base64-decode-btn', func: base64Decode },
     { el: '.url-encode-btn', func: urlEncode },
-    { el: '.url-decode-btn', func: urlDecode }
-    
+    { el: '.url-decode-btn', func: urlDecode },
+
+    /** Others */
+    { el: '.addslashes-btn', func: addSlashes },
+    { el: '.stripslashes-btn', func: stripSlashes },
+    { el: '.strip-spaces-btn', func: stripSpaces },
+    { el: '.reverse-string-btn', func: reverseString }
 ]
 
 listenClicks( actionButtons );

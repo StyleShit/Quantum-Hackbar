@@ -136,3 +136,65 @@ function setSelectedText( str )
     payloadInput.selectionStart = selectionStart;
     payloadInput.selectionEnd = selectionStart + str.length;
 }
+
+
+// add slashes
+function addSlashes()
+{
+    let str = getSelectedText();
+    
+    if( str != false )
+    {
+        str = str.replace( /\\/g, '\\\\' );
+        str = str.replace( /\'/g, "\\'" );
+        str = str.replace( /\"/g, '\\"' );
+        
+        addToPayload( str );
+    }
+}
+
+
+// strip slashes
+function stripSlashes()
+{
+    let str = getSelectedText();
+    
+    if( str != false )
+    {
+        str = str.replace( /\\'/g, '\'' );
+        str = str.replace( /\\"/g, '"' );
+        str = str.replace( /\\\\/g, '\\' );
+        
+        addToPayload( str );
+    }
+}
+
+
+// strip spaces
+function stripSpaces()
+{
+    let str = getSelectedText();
+    
+    if( str != false )
+    {
+        str = str.replace( /\s+/g, '' );
+        
+        addToPayload( str );
+    }
+}
+
+
+// reverse string chars
+function reverseString()
+{
+    let str = getSelectedText();
+    
+    if( str != false )
+    {
+        str = str.split( '' );
+        str = str.reverse();
+        str = str.join( '' );
+        
+        addToPayload( str );
+    }
+}
