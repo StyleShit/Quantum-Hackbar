@@ -28,7 +28,13 @@ let actionButtons = [
     /** XSS */
     { el: '.xss-from-char-code-btn', func: stringFromCharCode },
     { el: '.xss-html-characters-btn', func: htmlCharacters },
-    { el: '.xss-alert-statement-btn', func: xssAlertStatement }
+    { el: '.xss-alert-statement-btn', func: xssAlertStatement },
+
+    /** Encryption */
+    { el: '.md5-hash-btn', func: () => { encrypt( 'md5' ) } },
+    { el: '.sha1-hash-btn', func: () => { encrypt( 'sha1' ) } },
+    { el: '.sha256-hash-btn', func: () => { encrypt( 'sha256' ) } },
+    { el: '.rot13-hash-btn', func: () => { encrypt( 'rot13' ) } }
     
 ]
 
