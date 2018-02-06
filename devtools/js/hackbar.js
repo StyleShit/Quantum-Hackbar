@@ -34,7 +34,13 @@ let actionButtons = [
     { el: '.md5-hash-btn', func: () => { encrypt( 'md5' ) } },
     { el: '.sha1-hash-btn', func: () => { encrypt( 'sha1' ) } },
     { el: '.sha256-hash-btn', func: () => { encrypt( 'sha256' ) } },
-    { el: '.rot13-hash-btn', func: () => { encrypt( 'rot13' ) } }
+    { el: '.rot13-hash-btn', func: () => { encrypt( 'rot13' ) } },
+
+    /** Encoding */
+    { el: '.base64-encode-btn', func: base64Encode },
+    { el: '.base64-decode-btn', func: base64Decode },
+    { el: '.url-encode-btn', func: urlEncode },
+    { el: '.url-decode-btn', func: urlDecode }
     
 ]
 
