@@ -53,6 +53,7 @@ function loadURL()
     exec( 'window.location.href' ).then( URL => {
         URL = URL.slice( 0, -1 );
         payloadInput.value = decodeURI( URL );
+        loadPostData();
     });
 }
 
@@ -68,18 +69,99 @@ function splitURL()
 }
 
 
+// get POST data of current page from background script
+function loadPostData()
+{
+    let sending = browser.runtime.sendMessage({
+        action: 'getPostData'
+    });
+    
+    sending.then(
+        
+        response => {
+            let postData = [];
+
+            // iterate over post object
+            for( var obj in response.postData )
+            {
+                if( !response.postData.hasOwnProperty( obj ) )
+                    continue;
+
+                postData.push( obj + '=' + response.postData[obj][0] );
+            }
+
+            postDataInput.value = postData.join( '&' );
+        },
+
+        error => {
+            console.error( error );
+        }
+
+    );
+}
+
+
 // execute payload from the input
 function executePayload()
 {
-    let URL = payloadInput.value.replace( /(\n|\r|\r\n)/g, '' );
+    let URL = removeNewLines( payloadInput.value );
+
     URL = encodeURI( URL );
     URL = URL.replace( /\#/g, '%23' );
 
+    // Execute regular GET
+    if( !togglePostData.checked )
+        executeGetPayload( URL );
+
+    // Execute POST
+    else
+        executePostPayload( URL );
+}
+
+
+// execute a simple GET payload
+function executeGetPayload( URL )
+{
     exec( 'window.location.href = "' + URL + '"' ).then( () => {
         // focus the input again for comfort
         // TODO: not working. fix that...
         setTimeout( () => { payloadInput.focus() }, 100 );
     });
+}
+
+
+// execute POST payload
+function executePostPayload( URL )
+{
+    // generate random form id
+    let formID = 'quantum-hackbar-' + parseInt( Math.random()*10001 );
+    let form = '<form id="' + formID + '" method="post" action="' + URL + '">';
+
+    // parse POST fields from input
+    let postFields = [];
+    let postData = removeNewLines( postDataInput.value );
+    postData = postData.split( '&' );
+
+    postData.forEach( obj => {
+
+        obj = obj.split( '=' );
+
+        postFields.push({
+            field: obj[0],
+            value: obj[1] ? obj[1] : '',
+        });
+    });
+
+    // append POST inputs to form
+    postFields.forEach( obj => {;
+        form += '<input type="hidden" name="' + obj.field + '" value="' + obj.value + '" />';
+    });
+
+    form += '</form>';
+
+    // append form to page & submit it
+    exec( 'document.body.innerHTML += \'' + form + '\'' );
+    exec( 'document.querySelector( "#'+formID+'" ).submit()' );
 }
 
 
@@ -197,4 +279,11 @@ function reverseString()
         
         addToPayload( str );
     }
+}
+
+
+// remove new lines from string
+function removeNewLines( str )
+{
+    return str.replace( /(\n|\r|\r\n)/g, '' );
 }

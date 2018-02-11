@@ -12,9 +12,17 @@
 
 	"devtools_page": "devtools/devtools.html",
 
+	"background": {
+		"scripts": [
+		  "background.js"
+		]
+	  },
+
 	"permissions": [
 		"<all_urls>",
-		"activeTab"
+		"activeTab",
+		"webRequest",
+		"webRequestBlocking"
 	]
 
 }

@@ -7,7 +7,7 @@
 html, body
 {
     margin: 0;
-    padding: 0;
+    padding: 0 0 10px 0;
     background-color: #EEE;
     --b-shadow: 0 0 3px 2px rgba( 0,0,0,0.2 );
     --b-shadow-hover: 0 0 10px 2px rgba( 0,0,0,0.2 );
@@ -27,6 +27,8 @@ html, body
     width: 100%;
     background-color: #FFF;
     box-shadow: var( --b-shadow-hover );
+    position: relative;
+    z-index: 10;
 }
 
 .dropdown-menu ul
@@ -113,7 +115,7 @@ li.dropdown-submenu-item:hover
     display: block;
 }
 
-.payload
+.text-box
 {
     font-size: 13px;
     padding: 10px;
@@ -127,13 +129,13 @@ li.dropdown-submenu-item:hover
     transition: 0.3s all;
 }
 
-.payload:focus
+.text-box:focus
 {
     box-shadow: var( --b-shadow-hover );
     border-color: var( --main-color );
 }
 
-.buttons
+.buttons, .switches
 {
     /* text-align: right; */
     padding-left: 10px;
@@ -154,4 +156,75 @@ li.dropdown-submenu-item:hover
 .buttons button:hover
 {
     box-shadow: var( --b-shadow-hover );
+}
+
+.switches
+{
+    margin-top: 10px;
+}
+
+.switch
+{
+    display: none;
+}
+
+.switch + label
+{
+    color: rgba(0,0,0,0.6);
+    padding-left: 25px;
+    font-size: 13px;
+    position: relative;
+    transition: 0.3s all;
+}
+
+.switch + label::before
+{
+    content: '';
+    display: block;
+    background-color: rgba(144,144,144,0.5);
+    height: 6px;
+    width: 20px;
+    border-radius: 50px;
+    position: absolute;
+    left: 0;
+    top: 50%;
+    margin-top: -3px;
+    transition: 0.3s all;
+}
+
+.switch + label::after
+{
+    content: '';
+    display: block;
+    position: absolute;
+    height: 12px;
+    width: 12px;
+    left: 0;
+    background-color: #555;
+    border-radius: 50px;
+    top: 50%;
+    margin-top: -6px;
+    transition: 0.3s all;
+}
+
+.switch:checked + label, .switch:hover + label
+{
+    color: #34495e;
+}
+
+.switch:checked + label::before
+{
+    box-shadow: 0 0 0 100px var( --main-color ) inset;
+    opacity: 0.5;
+}
+
+.switch:checked + label::after
+{
+    background-color: var( --main-color );
+    left: 10px;
+}
+
+.hidden
+{
+    display: none;
 }

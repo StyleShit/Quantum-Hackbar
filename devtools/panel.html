@@ -164,7 +164,7 @@
 
             </ul>
 
-            <textarea class="payload"></textarea>
+            <textarea class="payload text-box" placeholder="Payload"></textarea>
         
             <div class="buttons">
                 <button class="load-url-btn">
@@ -179,6 +179,13 @@
                     Execute!
                 </button>
             </div>
+
+            <div class="switches">
+                <input type="checkbox" id="toggle-post-data" class="switch" />
+                <label for="toggle-post-data"> POST Data</label>
+            </div>
+
+            <textarea class="post-data text-box hidden" placeholder="POST Data"></textarea>
         </div>
         
         <script src="js/misc.js"></script>

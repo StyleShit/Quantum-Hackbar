@@ -3,9 +3,12 @@
  */
 
 let payloadInput = _( '.payload' );
+let postDataInput = _( '.post-data' );
+let togglePostData = _( '#toggle-post-data' );
+
 
 /**
- * Click listeners
+ * Event listeners
  */
 
 let actionButtons = [
@@ -50,3 +53,14 @@ let actionButtons = [
 ]
 
 listenClicks( actionButtons );
+
+
+// show or hide POST data input on toggle change
+togglePostData.addEventListener( 'change', e => {
+
+    if( e.target.checked )
+        postDataInput.classList.remove( 'hidden' );
+
+    else
+        postDataInput.classList.add( 'hidden' );
+});
