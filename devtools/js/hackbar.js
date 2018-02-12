@@ -4,7 +4,9 @@
 
 let payloadInput = _( '.payload' );
 let postDataInput = _( '.post-data' );
+let refererInput = _( '.referer' );
 let togglePostData = _( '#toggle-post-data' );
+let toggleReferer = _( '#toggle-referer' );
 
 
 /**
@@ -55,12 +57,20 @@ let actionButtons = [
 listenClicks( actionButtons );
 
 
-// show or hide POST data input on toggle change
-togglePostData.addEventListener( 'change', e => {
+// show or hide inputs on toggle change
+let toggles = [
+    { toggle: togglePostData, input: postDataInput },
+    { toggle: toggleReferer, input: refererInput }
+];
 
-    if( e.target.checked )
-        postDataInput.classList.remove( 'hidden' );
+for( let t of toggles )
+{
+    t.toggle.addEventListener( 'change', e => {
 
-    else
-        postDataInput.classList.add( 'hidden' );
-});
+        if( e.target.checked )
+            t.input.classList.remove( 'hidden' );
+    
+        else
+            t.input.classList.add( 'hidden' );
+    });
+}

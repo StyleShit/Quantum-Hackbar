@@ -54,6 +54,7 @@ function loadURL()
         URL = URL.slice( 0, -1 );
         payloadInput.value = decodeURI( URL );
         loadPostData();
+        loadReferer();
     });
 }
 
@@ -101,6 +102,27 @@ function loadPostData()
 }
 
 
+// get referer of current page from background script
+function loadReferer()
+{
+    let sending = browser.runtime.sendMessage({
+        action: 'getReferer'
+    });
+    
+    sending.then(
+        
+        response => {
+            refererInput.value = response.referer
+        },
+
+        error => {
+            console.error( error );
+        }
+
+    );
+}
+
+
 // execute payload from the input
 function executePayload()
 {
@@ -108,6 +130,10 @@ function executePayload()
 
     URL = encodeURI( URL );
     URL = URL.replace( /\#/g, '%23' );
+
+    // add referer
+    if( toggleReferer.checked )
+        addHeader( 'Referer', refererInput.value );
 
     // Execute regular GET
     if( !togglePostData.checked )
@@ -162,6 +188,17 @@ function executePostPayload( URL )
     // append form to page & submit it
     exec( 'document.body.innerHTML += \'' + form + '\'' );
     exec( 'document.querySelector( "#'+formID+'" ).submit()' );
+}
+
+
+// add header to request
+function addHeader( name, value )
+{
+    browser.runtime.sendMessage({
+        action: 'addHeader',
+        headerName: name,
+        headerValue: value
+    });
 }
 
 

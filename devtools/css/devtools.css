@@ -117,6 +117,7 @@ li.dropdown-submenu-item:hover
 
 .text-box
 {
+    display: block;
     font-size: 13px;
     padding: 10px;
     border: none;
