@@ -59,14 +59,14 @@ function loadURL()
 }
 
 
-// split the paypload URL by its get parameters
+// split the text by GET / POST parameters
 function splitURL()
 {
-    let URL =  payloadInput.value;
+    let URL =  activeInput.value;
     URL = URL.replace( /\?/, '\n?' );
     URL = URL.replace( /\&/g, '\n&' );
 
-    payloadInput.value = URL;
+    activeInput.value = URL;
 }
 
 
@@ -202,33 +202,11 @@ function addHeader( name, value )
 }
 
 
-// add value to payload
-function addToPayload( data )
-{
-    /**
-     * Source: https://stackoverflow.com/a/11077016/3829526
-     */
-
-    if( payloadInput.selectionStart || payloadInput.selectionStart == '0' )
-    {
-        let startPos = payloadInput.selectionStart;
-        let endPos = payloadInput.selectionEnd;
-
-        payloadInput.value = payloadInput.value.substring( 0, startPos )
-            + data
-            + payloadInput.value.substring( endPos, payloadInput.value.length );
-    } 
-    
-    else
-        payloadInput.value += data;
-}
-
-
 // get selected text
 function getSelectedText() 
 {
-    let selectionStart = payloadInput.selectionStart;
-    let selectionEnd = payloadInput.selectionEnd;
+    let selectionStart = activeInput.selectionStart;
+    let selectionEnd = activeInput.selectionEnd;
     if ( selectionEnd - selectionStart < 1 ) 
     {
         exec( 'alert( "Select text before using this function!" );' )
@@ -239,21 +217,29 @@ function getSelectedText()
         return false;
     }
 
-    return payloadInput.value.substr( selectionStart, selectionEnd - selectionStart );
+    return activeInput.value.substr( selectionStart, selectionEnd - selectionStart );
 }
 
 
-// set selected text
-function setSelectedText( str )
+// set selected text to the given data
+function setSelectedText( data )
 {
-    let selectionStart = payloadInput.selectionStart;
-    let selectionEnd = payloadInput.selectionEnd;
-    let pre = payloadInput.value.substr( 0, selectionStart );
-    let post = payloadInput.value.substr( selectionEnd, payloadInput.value.length );
+    /**
+     * Source: https://stackoverflow.com/a/11077016/3829526
+     */
 
-    payloadInput.value = pre + str + post;
-    payloadInput.selectionStart = selectionStart;
-    payloadInput.selectionEnd = selectionStart + str.length;
+    if( activeInput.selectionStart || activeInput.selectionStart == '0' )
+    {
+        let startPos = activeInput.selectionStart;
+        let endPos = activeInput.selectionEnd;
+
+        activeInput.value = activeInput.value.substring( 0, startPos )
+            + data
+            + activeInput.value.substring( endPos, activeInput.value.length );
+    } 
+    
+    else
+        activeInput.value += data;
 }
 
 
@@ -268,7 +254,7 @@ function addSlashes()
         str = str.replace( /\'/g, "\\'" );
         str = str.replace( /\"/g, '\\"' );
         
-        addToPayload( str );
+        setSelectedText( str );
     }
 }
 
@@ -284,7 +270,7 @@ function stripSlashes()
         str = str.replace( /\\"/g, '"' );
         str = str.replace( /\\\\/g, '\\' );
         
-        addToPayload( str );
+        setSelectedText( str );
     }
 }
 
@@ -298,7 +284,7 @@ function stripSpaces()
     {
         str = str.replace( /\s+/g, '' );
         
-        addToPayload( str );
+        setSelectedText( str );
     }
 }
 
@@ -314,7 +300,7 @@ function reverseString()
         str = str.reverse();
         str = str.join( '' );
         
-        addToPayload( str );
+        setSelectedText( str );
     }
 }
 

@@ -31,6 +31,6 @@ function encrypt( encryption )
                 break;
         }
 
-        addToPayload( str );
+        setSelectedText( str );
     }
 }

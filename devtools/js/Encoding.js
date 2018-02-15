@@ -10,7 +10,7 @@ function base64Encode()
     if( str != false )
     {
         str = btoa( str );
-        addToPayload( str );
+        setSelectedText( str );
     }
 }
 
@@ -22,7 +22,7 @@ function base64Decode()
     if( str != false )
     {
         str = atob( str );
-        addToPayload( str );
+        setSelectedText( str );
     }
 }
 
@@ -35,9 +35,10 @@ function urlEncode()
     if( str != false )
     {
         str = encodeURI( str );
-        addToPayload( str );
+        setSelectedText( str );
     }
 }
+
 
 // URL Decode
 function urlDecode()
@@ -47,6 +48,6 @@ function urlDecode()
     if( str != false )
     {
         str = decodeURI( str );
-        addToPayload( str );
+        setSelectedText( str );
     }
 }

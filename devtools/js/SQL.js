@@ -5,7 +5,7 @@
 // add basic SQL info column to the payload
 function basicInfoColum()
 {
-    addToPayload( 'CONCAT(user(),0x203a3a20,database(),0x203a3a20,version())' );
+    setSelectedText( 'CONCAT(user(),0x203a3a20,database(),0x203a3a20,version())' );
 }
 
 
@@ -21,7 +21,7 @@ function unionSelectStatement()
             out += i + ',';
 
         out = out.slice( 0, -1 );
-        addToPayload( out );
+        setSelectedText( out );
     });
 }
 
@@ -29,7 +29,7 @@ function unionSelectStatement()
 // replace spaces in payload with inline SQL comments
 function spacesToInlineComments()
 {
-    payloadInput.value = payloadInput.value.replace( /\s+/g, '/**/' );
+    activeInput.value = activeInput.value.replace( /\s+/g, '/**/' );
 }
 
 
@@ -39,7 +39,7 @@ function mysqlConvert( encoding )
     let text = getSelectedText();
     
     if( text !== false )
-        addToPayload( 'CONVERT(' + text + ' USING ' + encoding + ')' );
+        setSelectedText( 'CONVERT(' + text + ' USING ' + encoding + ')' );
 }
 
 
@@ -77,5 +77,5 @@ function SQLCHAR( db )
             break;
     }
 
-    addToPayload( charString );
+    setSelectedText( charString );
 }

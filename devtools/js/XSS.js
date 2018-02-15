@@ -29,7 +29,7 @@ function stringFromCharCode()
         let charArray = stringToCharArray( text );
         let charString = 'String.fromCharCode(' + charArray.join( ', ' ) + ')';
 
-        addToPayload( charString );
+        setSelectedText( charString );
     }
 }
 
@@ -44,7 +44,7 @@ function htmlCharacters()
         let charArray = stringToCharArray( text );
         let charString = '&#' + charArray.join( ';&#' ) + ';';
 
-        addToPayload( charString );
+        setSelectedText( charString );
     }
 }
 
@@ -52,5 +52,5 @@ function htmlCharacters()
 // add XSS alert to payload
 function xssAlertStatement()
 {
-    addToPayload( '<script>alert(String.fromCharCode(88, 83, 83))</script>' );
+    setSelectedText( '<script>alert(String.fromCharCode(88, 83, 83))</script>' );
 }

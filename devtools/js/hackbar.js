@@ -7,6 +7,7 @@ let postDataInput = _( '.post-data' );
 let refererInput = _( '.referer' );
 let togglePostData = _( '#toggle-post-data' );
 let toggleReferer = _( '#toggle-referer' );
+let activeInput = payloadInput;
 
 
 /**
@@ -24,7 +25,7 @@ let actionButtons = [
     { el: '.basic-info-column-btn' , func: basicInfoColum },
     { el: '.union-select-statement-btn' , func: unionSelectStatement },
     { el: '.spaces-to-inline-comments-btn', func: spacesToInlineComments },
-    { el: '.convert-using-utf-8-btn', func: () => { SQLCHAR( 'utf-8' ) } },
+    { el: '.convert-using-utf-8-btn', func: () => { mysqlConvert( 'utf-8' ) } },
     { el: '.convert-using-latin-btn', func: () => { mysqlConvert( 'latin1' ) } },
     { el: '.mysql-char-btn', func: () => { SQLCHAR( 'mysql' ) } },
     { el: '.mssql-char-btn', func: () => { SQLCHAR( 'mssql' ) } },
@@ -74,3 +75,11 @@ for( let t of toggles )
             t.input.classList.add( 'hidden' );
     });
 }
+
+
+// set active input as the active input
+__( '.text-box' ).forEach( input => {
+    input.addEventListener( 'focus', e => {
+        activeInput = e.target;
+    });
+});
