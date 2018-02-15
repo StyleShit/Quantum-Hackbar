@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans');
+
 *
 {
     box-sizing: border-box;
@@ -10,13 +12,9 @@ html, body
     padding: 0 0 10px 0;
     background-color: #EEE;
     --b-shadow: 0 0 3px 2px rgba( 0,0,0,0.2 );
-    --b-shadow-hover: 0 0 10px 2px rgba( 0,0,0,0.2 );
-    --main-color: #0a84ff;
-}
-
-.container
-{
-    /* width: 400px; */
+    --b-shadow-hover: 0 0 10px 2px rgba( 0,0,0,0.3 );
+    --main-color: #3F51B5;
+    --secondary-color: #303F9F;
 }
 
 .dropdown-menu
@@ -68,7 +66,6 @@ html, body
 {
     display: block;
     padding: 10px;
-    /* border-bottom: 1px dashed rgba( 0,0,0,0.2 ); */
     font-size: 11px;
     transition: 0.3s all;
 }
@@ -138,7 +135,6 @@ li.dropdown-submenu-item:hover
 
 .buttons, .switches
 {
-    /* text-align: right; */
     padding-left: 10px;
 }
 
@@ -156,6 +152,7 @@ li.dropdown-submenu-item:hover
 
 .buttons button:hover
 {
+    background-color: var( --secondary-color );
     box-shadow: var( --b-shadow-hover );
 }
 
