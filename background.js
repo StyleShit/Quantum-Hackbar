@@ -2,8 +2,8 @@
  * Background script to handle POST data & Referer
  */
 
-var postData = '';
-var referer = '';
+var postData = [];
+var referer = [];
 var headers = [];
 
 
@@ -33,20 +33,24 @@ browser.webRequest.onSendHeaders.addListener(
 
 // listen to messages from devtools panel
 browser.runtime.onMessage.addListener( ( message, sender, sendResponse ) => {
-    
+
     switch( message.action )
     {
         // return POST data to devtools panel
         case 'getPostData':
-            sendResponse({
-                postData: postData
+            getCurrentTab().then( tab => {
+                sendResponse({
+                    postData: postData[tab.id] ? postData[tab.id] : ''
+                });
             });
             break;
 
         // return referer to devtools panel
         case 'getReferer':
-            sendResponse({
-                referer: referer
+            getCurrentTab().then( tab => {
+                sendResponse({
+                    referer: referer[tab.id] ? referer[tab.id] : ''
+                });
             });
             break;
 
@@ -62,33 +66,41 @@ browser.runtime.onMessage.addListener( ( message, sender, sendResponse ) => {
             break;
     }
 
+    return true;
+
 });
 
 
 // get POST data on page load
 function getPostData( e )
 {
-    if( e.method == 'POST' )
-        postData = e.requestBody.formData;
+    getCurrentTab().then( tab => {
 
-    else
-        postData = '';
+        if( e.method == 'POST' )
+            postData[tab.id] = e.requestBody.formData;
+
+        else
+            postData[tab.id] = '';
+    });
 }
 
 
 // get referer on page load
 function getReferer( e )
 {
-    for( let h of e.requestHeaders )
-    {
-        if( h.name == 'Referer' )
-        {
-            referer = h.value;
-            return;
-        }
-    }
+    getCurrentTab().then( tab => {
 
-    referer = '';
+        for( let h of e.requestHeaders )
+        {
+            if( h.name == 'Referer' )
+            {
+                referer[tab.id] = h.value;
+                return;
+            }
+        }
+
+        referer[tab.id] = '';
+    });
 }
 
 
@@ -109,4 +121,20 @@ function rewriteHeaders( e )
     return { 
         requestHeaders: e.requestHeaders 
     };
+}
+
+
+// get current tab
+function getCurrentTab()
+{
+    return new Promise( ( resolve, reject ) => {
+        browser.tabs.query({ currentWindow: true, active: true }).then( tabs => {
+
+            if( tabs.length > 0 )
+                resolve( tabs[0] );
+
+            else
+                reject( 'Can\'t get tab' );
+        });
+    });
 }
