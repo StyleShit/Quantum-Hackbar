@@ -2,7 +2,7 @@
 
 	"manifest_version": 2,
 	"name": "Quantum Hackbar",
-	"version": "1.0",
+	"version": "1.0.1",
 
 	"description": "Hackbar port for the new WebExtensions API to work with new Firefox Quantum",
 
