@@ -79,3 +79,52 @@ function SQLCHAR( db )
 
     setSelectedText( charString );
 }
+
+
+// run sqlmap on the current url
+async function sqlmap()
+{
+    let url = payloadInput.value;
+
+    // if URL is not loaded, we will load it and then execute sqlmap
+    if( !url )
+    {
+        await loadURL();
+        url = payloadInput.value;
+    }
+
+    showLoader();
+
+    let sqlmap = 'https://suip.biz/?act=sqlmap';
+
+    ajax( sqlmap, 'POST', 
+        jsonToPostData({ url: url }),
+        { 
+            'Origin': 'Quantum Hackbar',
+            'content-type': 'application/x-www-form-urlencoded',
+            'Referer': 'https://suip.biz/?act=sqlmap'
+        })
+    
+    .then( res => {
+        return res.text();
+    })
+    
+    .then( html => {
+
+        // parse HTML and get report link
+        let el = document.createElement( 'html' );
+        el.innerHTML = html;
+
+        let link = el.querySelector( 'a[href^="https://suip.biz/?act=report"]' );
+
+        // send message to background page and create new tab
+        browser.runtime.sendMessage({
+            action: 'newTab',
+            url: link.href
+        })
+        
+        .then( tab => {
+            hideLoader();
+        });
+    });
+}

@@ -7,6 +7,7 @@ let postDataInput = _( '.post-data' );
 let refererInput = _( '.referer' );
 let togglePostData = _( '#toggle-post-data' );
 let toggleReferer = _( '#toggle-referer' );
+let loader = _( '.loader' );
 let activeInput = payloadInput;
 
 
@@ -30,6 +31,7 @@ let actionButtons = [
     { el: '.mysql-char-btn', func: () => { SQLCHAR( 'mysql' ) } },
     { el: '.mssql-char-btn', func: () => { SQLCHAR( 'mssql' ) } },
     { el: '.oracle-char-btn', func: () => { SQLCHAR( 'oracle' ) } },
+    { el: '.sqlmap-btn', func: sqlmap },
 
     /** XSS */
     { el: '.xss-from-char-code-btn', func: stringFromCharCode },

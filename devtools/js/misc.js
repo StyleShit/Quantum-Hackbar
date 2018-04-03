@@ -50,7 +50,7 @@ function exec( cmd )
 // load current URL into the payload input
 function loadURL()
 {
-    exec( 'window.location.href' ).then( URL => {
+    return exec( 'window.location.href' ).then( URL => {
         URL = URL.slice( 0, -1 );
         payloadInput.value = decodeURI( URL );
         loadPostData();
@@ -309,4 +309,44 @@ function reverseString()
 function removeNewLines( str )
 {
     return str.replace( /(\n|\r|\r\n)/g, '' );
+}
+
+
+// send AJAX request
+function ajax( url, method, data = {}, headers = {} )
+{
+    return fetch( url, {
+        method: method,
+        headers: headers,
+        cache: 'no-cache',
+        mode: 'cors',
+        redirect: 'follow',
+        body: data
+    });
+}
+
+
+// convert JSON to POST data string
+function jsonToPostData( json )
+{
+    let postData = [];
+    
+    for( let key in json )
+        postData.push( key + '=' + json[key] );
+
+    return postData.join( '&' );
+}
+
+
+// show loader
+function showLoader()
+{
+    loader.classList.remove( 'hidden' );
+}
+
+
+// hide loader
+function hideLoader()
+{
+    loader.classList.add( 'hidden' );
 }

@@ -62,6 +62,14 @@ browser.runtime.onMessage.addListener( ( message, sender, sendResponse ) => {
             });
             break;
 
+
+        // create new tab
+        case 'newTab':
+            browser.tabs.create({ url: message.url }).then( tab => {
+                sendResponse( tab );
+            });
+            break;
+
         default:
             break;
     }

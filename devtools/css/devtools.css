@@ -226,3 +226,44 @@ li.dropdown-submenu-item:hover
 {
     display: none;
 }
+
+.loader
+{
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    left: 0;
+    top: 0;
+    background-color: rgba( 255,255,255,0.5 );
+    z-index: 9999;
+}
+
+.loader::after
+{
+    content: '';
+    position: absolute;
+    height: 30px;
+    width: 30px;
+    border: 3px solid var( --main-color );
+    border-bottom-color: transparent;
+    border-radius: 100%;
+    left: 50%;
+    margin-left: -15px;
+    top: 50%;
+    margin-top: -15px;
+    animation: spin 0.3s linear infinite;
+}
+
+
+@keyframes spin
+{
+    from
+    {
+        transform: rotate( 0deg );
+    }
+
+    to
+    {
+        transform: rotate( 360deg );
+    }
+}
